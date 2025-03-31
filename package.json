@@ -1,0 +1,12 @@
+{
+    "name": "projet",
+    "description": "Coder un serveur web pour un site de randonnée dans le cadre d'un projet noté en L3 MIASHS.",
+    "version": "1.0.0",
+    "author": "Lena BOUCQ-KIEFFEL et Roxane DUBUS",
+    "type": "module",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "init-db": "node scripts/initDb.js"
+    }
+}
