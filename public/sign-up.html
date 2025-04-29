@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inscription</title>
+    <link rel="stylesheet" href="./shared.css" />
+    <script src="./sign-up.js" type="module"></script>
+  </head>
+  <body>
+    <h1>Inscription</h1>
+    <form id="sign-up-form" method="post">
+      <p id="sign-up-error" class="error">
+        L'inscription a échouée. Veuillez réessayer ultérieurement. Si le
+        problème persiste, merci de contacter l'administrateur du site.
+      </p>
+      <p>
+        <label for="username">Identifiant&nbsp;:</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          required
+          autocomplete="username"
+        />
+        <span id="username-exists-error" class="error">
+          Cet identifiant est déjà attribué. Veuillez en choisir un autre.
+        </span>
+      </p>
+      <p>
+        <label for="password">Mot de passe&nbsp;:</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          required
+          autocomplete="new-password"
+        />
+      </p>
+      <p>
+        <label for="name">Nom&nbsp;:</label>
+        <input id="name" type="text" name="name" required autocomplete="name" />
+      </p>
+      <button type="submit">Inscription</button>
+    </form>
+    <p>Vous êtes déjà inscrit&nbsp;? <a href="./login">Connectez vous</a>.</p>
+  </body>
+</html>
