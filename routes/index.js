@@ -1,43 +1,37 @@
-import { escapeHTML } from "../lib/escape-html.js";
+//routes lies a la page d'accueil
 
-function getHello(user) {
-  if (user === undefined || typeof user.name !== "string") {
-    return "Bonjour&nbsp;!";
+import express from 'express';
+import * as sqlite from 'sqlite';
+import { open } from 'sqlite';
+import sqlite3 from 'sqlite3';
+import path from 'path';
+
+const router = express.Router();
+
+// Route d'accueil
+router.get('/', async (req, res) => {
+  try {
+    const db = await open({
+      filename: path.join(process.cwd(), 'data', 'database.sqlite3'),
+      driver: sqlite3.Database
+    });
+
+    const randonnees = await db.all('SELECT * FROM randonnees');
+    db.close();
+
+    if (randonnees.length === 0) {
+      // Si aucune randonnee, rediriger vers contribuer.html
+      res.sendFile(path.join(process.cwd(), 'public', 'accueil.html'));
+    } else {
+      // Si des randonnées existent 
+      res.sendFile(path.join(process.cwd(), 'public', 'accueil.html')); //changer le lien
+    }
+
+  } catch (error) {
+    console.error('Erreur lors de la récupération des randonnées :', error.message);
+    res.status(500).send('Erreur serveur');
   }
-  return `Bonjour ${escapeHTML(user.name)}&nbsp;!`;
-}
+});
 
-function getNav(user) {
-  if (user === undefined) {
-    return `
-      <a href="./sign-up">S'enregistrer</a>
-      <a href="./login">Se connecter</a>
-    `;
-  }
-  return `
-    <form action="./logout" method="post">
-      <button>Déconnexion</button>
-    </form>
-  `;
-}
+export default router;
 
-export function get(request, response) {
-  const user = request.context.user;
-  response.send(`
-    <!DOCTYPE html>
-    <html lang="fr">
-      <head>
-        <meta charset="UTF-8" />
-        <title>Ma page</title>
-        <link rel="stylesheet" href="./shared.css" />
-      </head>
-      <body>
-        <main>
-          <h1>${getHello(user)}</h1>
-          <p>Bienvenue sur ma page.</p>
-        </main>
-        <nav>${getNav(user)}</nav>
-      </body>
-    </html>
-  `);
-}
