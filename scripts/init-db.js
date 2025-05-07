@@ -1,5 +1,4 @@
 //initialise la bdd
-//roxane 
 import * as sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
 import path from 'path';
