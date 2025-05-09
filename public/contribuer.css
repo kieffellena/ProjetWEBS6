@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 83vw;
+    height: 60vw;
     z-index: -1;
 }
 
@@ -15,6 +15,24 @@ body {
 
 form {
     position: relative;
+}
+
+form input {
+    display: block;
+    padding: 10px;
+    width: 55%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    color: var(--taupe);
+    text-align: center;
 }
 
 form button {
@@ -29,18 +47,7 @@ form button {
     left: 57vw;
 }
 
-form input {
-    display: block;
-    padding: 10px;
-    width: 75%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form label {
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 3px;
-    font-weight: bold;
-    color: var(--taupe);
+input[type="file"] {
+    background-color: white;
+    cursor: pointer;
 }
