@@ -45,3 +45,11 @@ p {
     height: 50px;
     width: auto;
 }
+
+.rando-sections .description img.image-rando {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin-top: 10px;
+    display: block;
+}
