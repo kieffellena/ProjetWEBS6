@@ -1,8 +1,9 @@
 const form = document.querySelector("#add-rando-form");
-
+//post la randonnee
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    //contribuer a une randonnee prend son nom adresse et description
     const name = form.elements.name.value;
     const adress = form.elements.adress.value;
     const description = form.elements.description.value;
@@ -16,7 +17,7 @@ form.addEventListener("submit", (event) => {
             element.classList.remove("enabled");
         });
         if (response.ok) {
-            location.href = "/"; // à modifier pour rediriger vers la page de la randonnée
+            location.href = "/"; // à modifier pour rediriger vers la page de la randonnée ???
         } else if (response.status === 409) {
             form.querySelector("#name-exists-error").classList.add("enabled");
         } else {

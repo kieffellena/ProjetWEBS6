@@ -1,20 +1,29 @@
-//initialise la bdd
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
 open({ filename: "./database.sqlite", driver: sqlite3.Database })
-  .then((db) => {
-    return db.prepare(`
-    CREATE TABLE IF NOT EXISTS randonnees (
-      name TEXT PRIMARY KEY,
-      adress TEXT NOT NULL,
-      description TEXT NOT NULL,
-      note INTEGER CHECK(note BETWEEN 1 AND 5)
-    );
-  `);
-  })
-  .then((statement) => statement.run())
-  .catch((error) => {
-    console.error('Erreur lors de la création des tables :', error);
-  })
+  .then(async (db) => {
+    // creation de la table randonnees
+    const stmt1 = await db.prepare(`
+      CREATE TABLE IF NOT EXISTS randonnees (
+        name TEXT PRIMARY KEY,
+        adress TEXT NOT NULL,
+        description TEXT NOT NULL,
+        note INTEGER CHECK(note BETWEEN 1 AND 5)
+      );
+    `);
+    await stmt1.run();
 
+    //creation table users
+    const stmt2 = await db.prepare(`
+      CREATE TABLE IF NOT EXISTS users (
+        username TEXT PRIMARY KEY,
+        password TEXT NOT NULL
+      );
+    `);
+    await stmt2.run();
+  })
+  
+  .catch((error) => {
+    console.error("Erreur lors de la création des tables :", error);
+  });
