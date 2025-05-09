@@ -1,7 +1,7 @@
 @import url('shared.css');
 
 .connexion-container{
-  background-color: #CCE7FF;
+  background-color: var(--vert-clair);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
