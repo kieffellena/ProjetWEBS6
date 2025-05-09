@@ -6,8 +6,6 @@ import { open } from "sqlite";
 import sqlite3 from "sqlite3";
 import cookiesSession from "cookie-session";
 import * as indexRoute from "./routes/index.js"
-//import * as signUpRoute from "./routes/signup.js"
-//import * as logOutRoute from "./routes/logout.js"
 import * as logInRoute from "./routes/login.js"
 import * as contribuerRoute from "./routes/contribuer.js"
 import randonneeRouter from "./routes/randonnee.js"
@@ -46,28 +44,6 @@ function start(database) {
     req.isLoggedIn = !!req.session?.username;
     next();
   });
-  
-  /*app.use((request, response, next) => {
-    const username = request.session?.username;
-    if (typeof username !== "string") {
-      next();
-      return;
-    }
-    request.context.database
-      .prepare("SELECT username, name FROM users WHERE username = ?")
-      .then((statement) => statement.get(request.session.username))
-      .then((user) => {
-        request.context = request.context ?? {};
-        request.context.user = user;
-        next();
-      })
-      .catch((error) => {
-        console.error("Error loading user from session", error);
-        // Clear the session to ensure the error doesn't persist.
-        request.session = null;
-        next();
-      });
-  });*/
 
   app.get("/contribuer", (req, res, next) => {
     if (!req.session?.username) {
@@ -77,7 +53,7 @@ function start(database) {
       next();
     }
   });
-  
+
   app.use(express.static("public", { extensions: ["html"] }));
   app.use(express.json());
 
@@ -85,26 +61,22 @@ function start(database) {
   app.get("/", indexRoute.get);
   app.use("/randonnee", randonneeRouter);
   app.post("/contribuer", contribuerRoute.post);
-  //app.post("/signup", signUpRoute.post);
   app.post("/login", logInRoute.post);
-  //app.post("/logout", logOutRoute.post);
   app.get("/session", (req, res) => {
     res.json({
       isLoggedIn: !!req.session?.username,
       username: req.session?.username || null
     });
   });
-  
   app.post("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
   });
-  
+
 
   app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
   });
-
 }
 
 open({ filename: databaseFile, driver: sqlite3.Database })
