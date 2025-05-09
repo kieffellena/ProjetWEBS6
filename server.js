@@ -41,6 +41,11 @@ function start(database) {
     })
   )
 
+  app.use((req, res, next) => {
+    req.isLoggedIn = !!req.session?.username;
+    next();
+  });
+  
   /*app.use((request, response, next) => {
     const username = request.session?.username;
     if (typeof username !== "string") {
@@ -63,6 +68,7 @@ function start(database) {
       });
   });*/
 
+
   app.use(express.static("public", { extensions: ["html"] }));
   app.use(express.json());
 
@@ -72,6 +78,18 @@ function start(database) {
   //app.post("/signup", signUpRoute.post);
   app.post("/login", logInRoute.post);
   //app.post("/logout", logOutRoute.post);
+  app.get("/session", (req, res) => {
+    res.json({
+      isLoggedIn: !!req.session?.username,
+      username: req.session?.username || null
+    });
+  });
+  
+  app.post("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+  });
+  
 
   app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);

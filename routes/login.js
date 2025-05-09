@@ -32,6 +32,8 @@ export function post(request, response) {
                     if (match) {
                         request.session = request.session ?? {};
                         request.session.username = username;
+                        request.session.isLoggedIn = true;
+                        console.log("Session après connexion :", request.session);
                         response.end(); //il se connecte
                     } else {
                         response.status(401).end(); // Mot de passe incorrect
@@ -54,6 +56,8 @@ export function post(request, response) {
                     .then(() => {
                         request.session = request.session ?? {};
                         request.session.username = username;
+                        request.session.isLoggedIn = true;
+                        console.log("Session après création :", request.session);
                         response.end();
                     });
             }

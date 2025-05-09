@@ -29,3 +29,35 @@ form.addEventListener("submit", (event) => {
         }
     );
 });
+
+fetch('/session')
+  .then(response => {
+    if (!response.ok) throw new Error("Pas de session");
+    return response.json();
+  })
+  .then(data => {
+    const loginStatus = document.getElementById("login-status");
+
+    if (data.isLoggedIn) {
+      // Affiche le nom et un bouton de déconnexion
+      loginStatus.innerHTML = `
+        Connecté en tant que ${data.username}
+        <button id="logout-btn" style="margin-left: 10px;">Se déconnecter</button>
+      `;
+
+      // Ajout du gestionnaire de clic pour déconnexion
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        fetch('/logout', { method: 'POST' })
+          .then(() => location.reload()) // Recharge la page après déconnexion
+          .catch(err => console.error("Erreur de déconnexion :", err));
+      });
+
+    } else {
+      // Affiche "Se connecter"
+      loginStatus.innerHTML = `<a href="/connexion">Se connecter</a>`;
+    }
+  })
+  .catch(() => {
+    document.getElementById("login-status").innerHTML = `<a href="/connexion">Se connecter</a>`;
+  });
+  
