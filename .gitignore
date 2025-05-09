@@ -4,6 +4,7 @@ node_modules/
 # SQLite database file
 data/database.sqlite3
 database.sqlite3
+database.sqlite
 
 # Logs
 logs/

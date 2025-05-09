@@ -1,100 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <title>Contribuer</title>
-  <link rel="stylesheet" href="/shared/palette1.css" />
+  <link rel="stylesheet" href="./contribuer.css" />
+  <script src="./contribuer.js" type="module"></script>
 </head>
+
 <body>
   <header>
     <nav>
-      <a href="/">Accueil</a> |
-      <a href="/contribuer.html">Contribuer</a>
+      <ul class="menu-bar">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/pages/contribuer" class="actual">Contribuer</a></li>
+      </ul>
     </nav>
   </header>
 
   <main>
     <h1>Ajouter une nouvelle randonnée qui réjouiera vos petits pieds !</h1>
 
-    <form action="/ajouter-randonnee" method="POST">
-      <label for="name">Nom de la randonnée :</label>
-      <input type="text" id="name" name="name" required />
-      
-      <label for="adress">Adresse du départ :</label>
-      <input type="text" id="adress" name="adress" required />      
+    <form id="add-rando-form" method="POST" action="/contribuer">
+      <p id="add-error" class="error">
+        L'ajout de la randonnée a échouée. Veuillez réessayer ultérieurement. Si le
+        problème persiste, merci de contacter les administratrices du site.
+      </p>
+
+      <p>
+        <label for="name">Nom de la randonnée :</label>
+        <input type="text" id="name" name="name" required />
+        <span id="name-exists-error" class="error">
+          Ce nom existe déjà pour une randonnée, veuillez le modifier pour bien l'identifier parmis les autres.
+        </span>
+      </p>
+
+      <p>
+        <label for="adress">Adresse du départ :</label>
+        <input type="text" id="adress" name="adress" required />
+      </p>
+
+      <p>
+        <label for="description">Description de la randonnée :</label>
+        <input type="text" id="description" name="description" />
+      </p>
 
       <button type="submit">Soumettre</button>
     </form>
   </main>
   <img src="/images/montagne.png" alt="Image de montage" class="footer-image">
 </body>
+
 </html>
-
-<style>
- 
-.footer-image {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 83vw;
-  z-index: -1;
-}
-
-body{
-  background-color: #CCE7FF;
-}
-
-h1{
-  text-align: center;
-  font-family: 'American';
-  color: var(--taupe);
-}
-
-nav{
-  text-align: center;
-}
-
-:root {
-    --bleu: #779fa1;
-    --rouge: #e9724c;
-    --taupe: #5e4b56;
-    --jaune: #f5af00;
-    --vert: #315c2b;
-}
-
-form {
-  position: relative;
-}
-
-form button {
-  padding: 10px 20px;
-  background-color: var(--jaune);
-  color: var(--taupe);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  position: absolute;
-  bottom: -75px;
-  left: 55vw;
-}
-
-form input {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  width: 75%;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-form label {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 3px;
-  font-weight: bold;
-  color: var(--taupe);
-}
-
-</style>

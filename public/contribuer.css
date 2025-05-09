@@ -1,0 +1,46 @@
+@import url('shared.css');
+
+.footer-image {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 83vw;
+    z-index: -1;
+}
+
+body {
+    background-color: #CCE7FF;
+}
+
+form {
+    position: relative;
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: var(--jaune);
+    color: var(--taupe);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    bottom: -70px;
+    left: 57vw;
+}
+
+form input {
+    display: block;
+    padding: 10px;
+    width: 75%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    color: var(--taupe);
+}

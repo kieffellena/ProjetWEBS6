@@ -5,12 +5,12 @@ import { open } from "sqlite";
 open({ filename: "./database.sqlite", driver: sqlite3.Database })
   .then((db) => {
     return db.prepare(`
-      // Créer la table "randonnees" si elle n'existe pas
-  CREATE TABLE IF NOT EXISTS randonnees (
-        name TEXT PRIMARY KEY,
-        adress TEXT NOT NULL,
-        note INTEGER MOT NULL
-         );
+    CREATE TABLE IF NOT EXISTS randonnees (
+      name TEXT PRIMARY KEY,
+      adress TEXT NOT NULL,
+      description TEXT NOT NULL,
+      note INTEGER CHECK(note BETWEEN 1 AND 5)
+    );
   `);
   })
   .then((statement) => statement.run())

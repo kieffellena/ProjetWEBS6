@@ -1,0 +1,64 @@
+:root {
+    --bleu: #99c8f2;
+    --rouge: #e9724c;
+    --taupe: #5e4b56;
+    --jaune: #f5af00;
+    --vert: #315c2b;
+}
+
+body {
+    font-family: 'American';
+    margin: 0;
+}
+
+main {
+    margin: 15px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--taupe);
+    margin-bottom: 10px;
+}
+
+.menu-bar {
+    text-align: center;
+    background-color: var(--bleu);
+    padding: 10px 0;
+    margin: 0;
+}
+
+.menu-bar>li {
+    display: inline;
+    list-style: none;
+}
+
+.menu-bar>li>a {
+    color: var(--taupe);
+    margin: 0 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.menu-bar>li>a.actual {
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: var(--taupe);
+}
+
+.menu-bar>li>a:hover {
+    background-color: var(--taupe);
+    color: var(--bleu);
+}
+
+.error {
+    display: none;
+    color: var(--rouge);
+}
+
+.error.enabled {
+    display: block;
+}
