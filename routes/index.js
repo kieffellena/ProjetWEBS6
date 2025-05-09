@@ -16,7 +16,7 @@ export function get(request, response) {
       else {
         const randonneeListHTML = randonnees.map((r) => {
           return `
-          <li class="rando-item" data-name="${escapeHTML(r.name.toLowerCase())}">
+          <li>
             ${escapeHTML(r.name)} - ${escapeHTML(r.adress)} - <a href="/randonnee/${encodeURIComponent(r.name)}">Chemin vers la randonnée</a>
           </li>  
           `;

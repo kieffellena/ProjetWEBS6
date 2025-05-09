@@ -1,7 +1,7 @@
 @import url('shared.css');
 
-.connexion-container{
-  background-color: #CCE7FF;
+.connexion-container {
+  background-color: var(--vert-clair);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -16,23 +16,23 @@ form#connexion-form {
   width: 400px;
   display: flex;
   flex-direction: column;
-  gap : 10px;
+  gap: 10px;
 }
 
 form#connexion-form p {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 label {
   font-weight: bold;
   color: var(--taupe);
 }
 
 form#connexion-form p {
-    margin: 0;
-  }
+  margin: 0;
+}
 
 input[type="text"],
 input[type="password"] {
@@ -59,6 +59,6 @@ button[type="submit"]:hover {
 }
 
 input[type="checkbox"] {
-  transform: scale(1.5); 
+  transform: scale(1.5);
   margin-right: 8px;
 }
