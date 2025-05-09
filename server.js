@@ -68,7 +68,15 @@ function start(database) {
       });
   });*/
 
-
+  app.get("/contribuer", (req, res, next) => {
+    if (!req.session?.username) {
+      // Rediriger vers la page de connexion si non connecté
+      res.redirect("/connexion");
+    } else {
+      next();
+    }
+  });
+  
   app.use(express.static("public", { extensions: ["html"] }));
   app.use(express.json());
 
