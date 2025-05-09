@@ -2,7 +2,7 @@
 import { escapeHTML } from "../lib/escape-html.js"
 
 export function get(request, response) {
-  request.context.database.all("SELECT * FROM randonnees")
+  request.context.database.all("SELECT * FROM randonnees ORDER BY name")
     .then((randonnees) => {
       let contentHTML = "";
 
@@ -17,18 +17,13 @@ export function get(request, response) {
         const randonneeListHTML = randonnees.map((r) => {
           return `
           <li>
-            ${escapeHTML(r.name)}
+            ${escapeHTML(r.name)} - ${escapeHTML(r.adress)} - <a href="/randonnee/${encodeURIComponent(r.name)}">Chemin vers la randonnée</a>
           </li>  
-          `
-          /*`
-            <li>
-              <a href="/randonnee/${escapeHTML(r.name)}">${escapeHTML(r.nom)}</a> - ${escapeHTML(r.depart)}
-            </li>
-          `*/;
+          `;
         }).join("");
 
         contentHTML = `
-          <ul>
+          <ul class="rando-list">
            ${randonneeListHTML}
           </ul>
         `;
@@ -51,8 +46,11 @@ export function get(request, response) {
                 </ul>
               </nav>
             </header>
-            <main>
-              <h1>Les Randonnées</h1>
+            <main class="center">
+              <div class="texte-avec-image">
+                <img src="/images/randonnee.png" alt="Image de randonneur" class="image-icon">
+                <h1>Les Randonnées</h1>
+              </div>
               ${contentHTML}
             </main>
           </body>

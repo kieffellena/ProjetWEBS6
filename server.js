@@ -10,6 +10,7 @@ import * as indexRoute from "./routes/index.js"
 //import * as logOutRoute from "./routes/logout.js"
 //import * as logInRoute from "./routes/login.js"
 import * as contribuerRoute from "./routes/contribuer.js"
+import randonneeRouter from "./routes/randonnee.js"
 
 const PORT = 8080;
 const databaseFile = "database.sqlite";
@@ -68,6 +69,7 @@ function start(database) {
 
   //routes
   app.get("/", indexRoute.get);
+  app.use("/randonnee", randonneeRouter);
   app.post("/contribuer", contribuerRoute.post);
   //app.post("/signup", signUpRoute.post);
   //app.post("/login", logInRoute.post);

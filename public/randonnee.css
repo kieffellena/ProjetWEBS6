@@ -1,0 +1,47 @@
+@import url('shared.css');
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    font-size: 20px;
+}
+
+.rando-sections {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: stretch;
+    height: 60vh;
+}
+
+.rando-sections .description {
+    flex: 2;
+    min-width: 250px;
+    border: solid var(--jaune);
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+
+.rando-sections .adresse {
+    flex: 1;
+    min-width: 200px;
+    border: solid var(--jaune);
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+
+.panneau-image {
+    height: 50px;
+    width: auto;
+}
