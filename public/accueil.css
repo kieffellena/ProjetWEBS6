@@ -7,6 +7,16 @@ main.center {
     align-items: center;
 }
 
+.tri-container>label {
+    font-size: 1.2rem;
+}
+
+.tri-container>select {
+    font-size: 1rem;
+    font-family: "American";
+    border-radius: 5px;
+}
+
 .rando-list {
     list-style: none;
     padding-left: 0;

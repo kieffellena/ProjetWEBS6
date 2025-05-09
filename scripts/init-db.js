@@ -9,7 +9,8 @@ open({ filename: "./database.sqlite", driver: sqlite3.Database })
         name TEXT PRIMARY KEY,
         adress TEXT NOT NULL,
         description TEXT NOT NULL,
-        note INTEGER CHECK(note BETWEEN 1 AND 5)
+        note INTEGER CHECK(note BETWEEN 1 AND 5),
+        photo TEXT
       );
     `);
     await stmt1.run();
@@ -23,7 +24,7 @@ open({ filename: "./database.sqlite", driver: sqlite3.Database })
     `);
     await stmt2.run();
   })
-  
+
   .catch((error) => {
     console.error("Erreur lors de la création des tables :", error);
   });

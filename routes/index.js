@@ -23,6 +23,13 @@ export function get(request, response) {
         }).join("");
 
         contentHTML = `
+          <div class="tri-container">
+                <label for="tri-nom">Trier par nom :</label>
+                <select id="tri-nom">
+                  <option value="asc">A → Z</option>
+                  <option value="desc">Z → A</option>
+                </select>
+          </div> 
           <ul class="rando-list">
            ${randonneeListHTML}
           </ul>
@@ -35,6 +42,7 @@ export function get(request, response) {
           <head>
             <title>Accueil</title>
             <link rel="stylesheet" href="./accueil.css">
+            <script type="module" src="./tri-rando.js"></script>
           </head>
 
           <body>
