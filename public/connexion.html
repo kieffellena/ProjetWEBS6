@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="./connexion.css">
+
+    <script src="./connexion.js" type="module"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="menu-bar">
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/pages/contribuer" class="actual">Contribuer</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="connexion-container">
+        <h1>Connexion</h1>
+        <form id="connexion-form" method="post">
+            <p>
+                <label for="username">Identifiant</label>
+                <input id="username" type="text" name="username" required autocomplete="username">
+                <span id="username-exists-error" class="error">
+                    Cet identifiant est déjà attribué. Veuillez en choisir un autre.
+                </span>
+            </p>
+
+            <p>
+                <label for="password">Mot de passe</label>
+                <input id="password" type="password" name="password" required autocomplete="new-password">
+            </p>
+            <span id="connexion-error" class="error">
+                l’identifiant renseigné n’existe pas ou que le mot de passe est incorrect
+            </span>
+            <p>
+                <label>
+                    <input type="checkbox" id="create-user" name="createUser">
+                    Voulez-vous créer un compte ?
+                </label>
+            </p>
+            <button type="submit">Se connecter</button>
+            <img src="/images/randonneurs.jpg" alt="Image de dfeux randonneurs" class="footer-image">
+        </form>
+</div>
+</body>
+
+</html>
