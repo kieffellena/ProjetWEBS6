@@ -14,9 +14,9 @@ const openDb = async () => {
 };
 
 // Page de détail dune rando
-router.get('/:id', async (req, res) => {
+router.get('/:name', async (req, res) => {
   const db = await openDb();
-  const rando = await db.get('SELECT * FROM randonnees WHERE id = ?', req.params.id);
+  const rando = await db.get('SELECT * FROM randonnees WHERE name = ?', req.params.id);
   if (!rando) return res.status(404).send("Randonnée introuvable.");
   res.render('randonnee', { rando });
 });
@@ -27,13 +27,13 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { nom, description, depart } = req.body;
+  const { name, adress } = req.body;
   const db = await openDb();
   const result = await db.run(
-    'INSERT INTO randonnees (nom, description, depart) VALUES (?, ?, ?)',
-    [nom, description, depart]
+    'INSERT INTO randonnees (name, adress) VALUES (?, ?, ?)',
+    [name, adress]
   );
-  res.redirect(`/randonnee/${result.lastID}`);
+  res.redirect(`/randonnee/${result.lastName}`);
 });
 
 export default router;

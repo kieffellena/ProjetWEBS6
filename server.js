@@ -1,38 +1,87 @@
-//configuration serveur Express, définition middlewares,
+//configuration serveur Express,
 //déclaration routes pour gérer les pages et interactions
 
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import indexRoutes from './routes/index.js';
-import randoRoutes from './routes/randonnee.js';
+import express, { request, response } from "express";
+import { open } from "sqlite";
+import sqlite3 from "sqlite3";
+//import cookiesSession from "cookie-session";
+import * as indexRoute from "./routes/index.js"
+//import * as signUpRoute from "./routes/signup.js"
+//import * as logOutRoute from "./routes/logout.js"
+//import * as logInRoute from "./routes/login.js"
+import * as contribuerRoute from "./routes/contribuer.js"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const app = express();
 const PORT = 8080;
+const databaseFile = "database.sqlite";
+const sessionKey = "plBzHBa/4AJKEGkss0VmyPCdwHoVpEzaKj2uY0aWd4E=";
+const sessionMaxAge = 24 * 60 * 60 * 1000; // 24 hours
 
-//middlewares
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.json());
+function start(database) {
+  const app = express();
 
-//routes
-app.use('/', indexRoutes);
-app.use('/randonnee', randoRoutes);
+  //intergiciel de log
+  app.use((request, response, next) => {
+    console.log(`${request.method} ${request.url}`);
+    next();
 
-app.post('/ajouter-randonnee', (req, res) => {
-  const { name, adress } = req.body;
+  })
 
-  //pr tester
-  console.log("Nom :", name);
-  console.log("Adresse :", adress);
-  console.log('rando check');
-});
+  //ouverture de la bdd
+  app.use((request, response, next) => {
+    request.context = request.context ?? {};
+    request.context.database = database;
+    next();
+  })
 
-app.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
-});
+  /*app.use(
+    cookiesSession({
+      keys: [sessionKey],
+      maxAge: sessionMaxAge,
+      sameSite: "strict"
+    })
+  )*/
+
+  /*app.use((request, response, next) => {
+    const username = request.session?.username;
+    if (typeof username !== "string") {
+      next();
+      return;
+    }
+    request.context.database
+      .prepare("SELECT username, name FROM users WHERE username = ?")
+      .then((statement) => statement.get(request.session.username))
+      .then((user) => {
+        request.context = request.context ?? {};
+        request.context.user = user;
+        next();
+      })
+      .catch((error) => {
+        console.error("Error loading user from session", error);
+        // Clear the session to ensure the error doesn't persist.
+        request.session = null;
+        next();
+      });
+  });*/
+
+  app.use(express.static("public", { extensions: ["html"] }));
+  app.use(express.json());
+
+  //routes
+  app.get("/", indexRoute.get);
+  app.post("/contribuer", contribuerRoute.post);
+  //app.post("/signup", signUpRoute.post);
+  //app.post("/login", logInRoute.post);
+  //app.post("/logout", logOutRoute.post);
+
+  app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
+  });
+
+}
+
+open({ filename: databaseFile, driver: sqlite3.Database })
+  .then(start)
+  .catch((error) => {
+    console.error("Error opening database", error);
+    process.exit(1);
+  });

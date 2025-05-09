@@ -1,37 +1,68 @@
 //routes lies a la page d'accueil
+import { escapeHTML } from "../lib/escape-html.js"
 
-import express from 'express';
-import * as sqlite from 'sqlite';
-import { open } from 'sqlite';
-import sqlite3 from 'sqlite3';
-import path from 'path';
+export function get(request, response) {
+  request.context.database.all("SELECT * FROM randonnees")
+    .then((randonnees) => {
+      let contentHTML = "";
 
-const router = express.Router();
+      if (randonnees.length === 0) {
+        contentHTML = `
+         <p>Il n'y a pas de randonnées pour le moment. 
+          <a href="/contribuer">Contribuer ici</a>
+        </p>
+        `;
+      }
+      else {
+        const randonneeListHTML = randonnees.map((r) => {
+          return `
+          <li>
+            ${escapeHTML(r.name)}
+          </li>  
+          `
+          /*`
+            <li>
+              <a href="/randonnee/${escapeHTML(r.name)}">${escapeHTML(r.nom)}</a> - ${escapeHTML(r.depart)}
+            </li>
+          `*/;
+        }).join("");
 
-// Route d'accueil
-router.get('/', async (req, res) => {
-  try {
-    const db = await open({
-      filename: path.join(process.cwd(), 'data', 'database.sqlite3'),
-      driver: sqlite3.Database
-    });
+        contentHTML = `
+          <ul>
+           ${randonneeListHTML}
+          </ul>
+        `;
+      }
 
-    const randonnees = await db.all('SELECT * FROM randonnees');
-    db.close();
+      response.send(`
+        <!DOCTYPE html>
+        <html lang="fr">
+          <head>
+            <title>Accueil</title>
+            <link rel="stylesheet" href="./accueil.css">
+          </head>
 
-    if (randonnees.length === 0) {
-      // Si aucune randonnee, rediriger vers contribuer.html
-      res.sendFile(path.join(process.cwd(), 'public', 'accueil.html'));
-    } else {
-      // Si des randonnées existent 
-      res.sendFile(path.join(process.cwd(), 'public', 'accueil.html')); //changer le lien
+          <body>
+            <header>
+              <nav>
+                <ul class="menu-bar">
+                  <li><a href="/" class="actual">Accueil</a></li>
+                  <li><a href="/contribuer">Contribuer</a></li>
+                </ul>
+              </nav>
+            </header>
+            <main>
+              <h1>Les Randonnées</h1>
+              ${contentHTML}
+            </main>
+          </body>
+        </html>
+        `)
     }
+    )
 
-  } catch (error) {
-    console.error('Erreur lors de la récupération des randonnées :', error.message);
-    res.status(500).send('Erreur serveur');
-  }
-});
-
-export default router;
-
+    .catch((error) => {
+      console.error('Erreur lors de la récupération des randonnées :', error);
+      response.status(500).send('Erreur serveur');
+    })
+}
