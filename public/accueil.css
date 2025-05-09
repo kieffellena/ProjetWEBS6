@@ -1,1 +1,37 @@
 @import url('shared.css');
+
+main.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tri-container>label {
+    font-size: 1.2rem;
+}
+
+.tri-container>select {
+    font-size: 1rem;
+    font-family: "American";
+    border-radius: 5px;
+}
+
+.rando-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.rando-list>li {
+    background: url('/images/icon-list.png') no-repeat left center;
+    background-size: 40px 40px;
+    padding-left: 60px;
+    margin-bottom: 10px;
+    line-height: 3;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--rouge);
+}

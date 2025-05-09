@@ -2,7 +2,7 @@
 import { escapeHTML } from "../lib/escape-html.js"
 
 export function get(request, response) {
-  request.context.database.all("SELECT * FROM randonnees")
+  request.context.database.all("SELECT * FROM randonnees ORDER BY name")
     .then((randonnees) => {
       let contentHTML = "";
 
@@ -16,19 +16,21 @@ export function get(request, response) {
       else {
         const randonneeListHTML = randonnees.map((r) => {
           return `
-          <li>
-            ${escapeHTML(r.name)}
+          <li class="rando-item" data-name="${escapeHTML(r.name)}">
+            ${escapeHTML(r.name)} - ${escapeHTML(r.adress)} - <a href="/randonnee/${encodeURIComponent(r.name)}">Chemin vers la randonnée</a>
           </li>  
-          `
-          /*`
-            <li>
-              <a href="/randonnee/${escapeHTML(r.name)}">${escapeHTML(r.nom)}</a> - ${escapeHTML(r.depart)}
-            </li>
-          `*/;
+          `;
         }).join("");
 
         contentHTML = `
-          <ul>
+          <div class="tri-container">
+                <label for="tri-nom">Trier par nom :</label>
+                <select id="tri-nom">
+                  <option value="asc">A → Z</option>
+                  <option value="desc">Z → A</option>
+                </select>
+          </div> 
+          <ul class="rando-list">
            ${randonneeListHTML}
           </ul>
         `;
@@ -40,6 +42,7 @@ export function get(request, response) {
           <head>
             <title>Accueil</title>
             <link rel="stylesheet" href="./accueil.css">
+            <script type="module" src="./tri-rando.js"></script>
           </head>
 
           <body>
@@ -51,8 +54,11 @@ export function get(request, response) {
                 </ul>
               </nav>
             </header>
-            <main>
-              <h1>Les Randonnées</h1>
+            <main class="center">
+              <div class="texte-avec-image">
+                <img src="/images/randonnee.png" alt="Image de randonneur" class="image-icon">
+                <h1>Les Randonnées</h1>
+              </div>
               ${contentHTML}
             </main>
           </body>

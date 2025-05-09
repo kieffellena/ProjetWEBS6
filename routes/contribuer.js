@@ -1,4 +1,5 @@
 export function post(request, response) {
+    //gerer la fonction post
     let { name, adress, description } = request.body;
     console.log("Contenu reçu :", request.body);
 

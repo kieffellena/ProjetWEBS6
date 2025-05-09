@@ -4,21 +4,25 @@
     --taupe: #5e4b56;
     --jaune: #f5af00;
     --vert: #315c2b;
+    --vert-clair: #D0E6D1;
 }
 
 body {
     font-family: 'American';
     margin: 0;
+    background-color: var(--vert-clair);
 }
 
 main {
-    margin: 15px;
+    margin: 25px;
 }
 
 h1 {
     text-align: center;
     color: var(--taupe);
-    margin-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 40px;
 }
 
 .menu-bar {
@@ -61,4 +65,24 @@ h1 {
 
 .error.enabled {
     display: block;
+}
+
+.texte-avec-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.image-icon {
+    height: 50px;
+    width: auto;
+}
+
+.texte-avec-image h1,
+.texte-avec-image p {
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
 }

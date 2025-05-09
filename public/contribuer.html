@@ -11,9 +11,11 @@
 <body>
   <header>
     <nav>
+      <!--barre de menu-->
       <ul class="menu-bar">
         <li><a href="/">Accueil</a></li>
-        <li><a href="/pages/contribuer" class="actual">Contribuer</a></li>
+        <li><a href="/contribuer" class="actual">Contribuer</a></li>
+        <li id="login-status"></li>
       </ul>
     </nav>
   </header>
@@ -22,6 +24,7 @@
     <h1>Ajouter une nouvelle randonnée qui réjouiera vos petits pieds !</h1>
 
     <form id="add-rando-form" method="POST" action="/contribuer">
+      <!--les erreurs sont caches sauf si elles sont "appeles"-->
       <p id="add-error" class="error">
         L'ajout de la randonnée a échouée. Veuillez réessayer ultérieurement. Si le
         problème persiste, merci de contacter les administratrices du site.
@@ -45,9 +48,13 @@
         <input type="text" id="description" name="description" />
       </p>
 
+      <label for="description">Une photo de la rando ? :</label>
+      <input type="file" id="image" name="image" accept="image/*">
+
       <button type="submit">Soumettre</button>
     </form>
   </main>
+  <!--pour deposer le fichier image de la randonnee-->
   <img src="/images/montagne.png" alt="Image de montage" class="footer-image">
 </body>
 
